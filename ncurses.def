@@ -1,0 +1,48 @@
+DEFINITION MODULE FOR "C" ncurses ;
+
+FROM SYSTEM IMPORT ADDRESS;
+
+EXPORT UNQUALIFIED printf, scanf, curs_set, endwin, initscr, refresh, move, addstr, mvaddstr,
+                   napms, clear, nodelay, getch, keypad, setlocale, has_colors, start_color,
+                   init_pair, bkgd, COLOR_PAIR, getmaxx, getmaxy, addch, addnstr, mvaddnstr;
+
+TYPE WINDOW = POINTER TO LONGCARD;
+
+(* Keep these here just for convenience *)
+PROCEDURE printf (a: ARRAY OF CHAR; ...) : [ INTEGER ] ;
+PROCEDURE scanf (a: ARRAY OF CHAR; ...) : [ INTEGER ] ;
+
+PROCEDURE setlocale (category: INTEGER; locale: ARRAY OF CHAR) : [ ADDRESS ] ;
+
+PROCEDURE initscr () : [ ADDRESS ] ;
+PROCEDURE endwin () : [ INTEGER ] ;
+
+PROCEDURE bkgd (ch: CARDINAL) : [ INTEGER ] ;
+
+PROCEDURE start_color () : [ INTEGER ] ;
+PROCEDURE has_colors () : [ BOOLEAN ] ;
+PROCEDURE init_pair (pair: SHORTINT; f: SHORTINT; b: SHORTINT) : [ INTEGER ] ;
+PROCEDURE COLOR_PAIR (n: INTEGER) : [ INTEGER ] ;
+
+PROCEDURE getmaxx (w: ADDRESS) : [ INTEGER ] ;
+PROCEDURE getmaxy (w: ADDRESS) : [ INTEGER ] ;
+
+PROCEDURE refresh () : [ INTEGER ] ;
+PROCEDURE clear () : [ INTEGER ] ;
+
+PROCEDURE nodelay (w: ADDRESS; bf: BOOLEAN) : [ INTEGER ] ;
+PROCEDURE keypad (w: ADDRESS; bf: BOOLEAN) : [ INTEGER ] ;
+PROCEDURE getch () : [ INTEGER ] ;
+
+PROCEDURE move (y: INTEGER; x: INTEGER) : [ INTEGER ] ;
+PROCEDURE addch (ch: CARDINAL) : [ INTEGER ] ;
+PROCEDURE addstr (a: ARRAY OF CHAR) : [ INTEGER ] ;
+PROCEDURE mvaddstr (y: INTEGER; x: INTEGER; s: ARRAY OF CHAR) : [ INTEGER ] ;
+PROCEDURE addnstr (a: ARRAY OF CHAR; n: INTEGER) : [ INTEGER ] ;
+(* PROCEDURE mvaddnstr (y: INTEGER; x: INTEGER; a: ARRAY OF CHAR; n: INTEGER) : [ INTEGER ] ; *)
+PROCEDURE mvaddnstr (y: INTEGER; x: INTEGER; a: ADDRESS; n: INTEGER) : [ INTEGER ] ;
+
+PROCEDURE curs_set (i: INTEGER) : [ INTEGER ] ;
+PROCEDURE napms (ms: INTEGER) : [ INTEGER ] ;
+
+END ncurses.
